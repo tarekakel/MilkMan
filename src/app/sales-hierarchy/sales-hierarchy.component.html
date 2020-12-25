@@ -1,0 +1,51 @@
+<div class="row">
+  <div class="col-md-2">
+    <mat-form-field style="width: 100px" *ngIf="GroupDate == 'DAY'">
+      <input matInput [matDatepicker]="from" [formControl]="fromdate" placeholder="From" (dateInput)="ChangeFrom('input', $event)"
+        (dateChange)="ChangeFrom('change', $event)">
+      <mat-datepicker-toggle matSuffix [for]="from"></mat-datepicker-toggle>
+      <mat-datepicker #from></mat-datepicker>
+    </mat-form-field>
+
+    <app-mat-select-filter *ngIf="GroupDate == 'MONTH'" [selectedData]="MonthFrom" [data]="listMoth" [placeholder]="'form'" (selectionChange)="selectMonthFrom($event.value)" [disabled]="listMoth.length == 0"></app-mat-select-filter>
+  </div>
+  <div class="col-md-2">
+    <mat-form-field style="width: 100px" *ngIf="GroupDate == 'DAY'">
+      <input matInput [matDatepicker]="to" [formControl]="todate" placeholder="To" (dateInput)="ChangeTo('input', $event)" (dateChange)="ChangeTo('change', $event)">
+      <mat-datepicker-toggle matSuffix [for]="to"></mat-datepicker-toggle>
+      <mat-datepicker #to></mat-datepicker>
+    </mat-form-field>
+    <app-mat-select-filter *ngIf="GroupDate == 'MONTH'" [selectedData]="MonthTo" [data]="listMoth" [placeholder]="'to'" (selectionChange)="selectMonthTo($event.value)" [disabled]="listMoth.length == 0"></app-mat-select-filter>
+  </div>
+  <div class="col-md-2">
+    <mat-form-field>
+      <mat-select [(value)]="GroupDate" placeholder="Daily Or Monthly" (selectionChange)="selectGroup($event.value)">
+        <mat-option [value]="'DAY'">Daily</mat-option>
+        <mat-option [value]="'MONTH'">Monthly</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+</div>
+<!-- <div [contextMenu]="basicMenu" [contextMenuSubject]="items">
+  <div style="height: 500px;">
+    <ngx-charts-line-chart style="z-index: 14" [scheme]="colorScheme" [results]="ELEMENT_DATA" [gradient]="gradient" [xAxis]="showXAxis"
+      [yAxis]="showYAxis" [curve]="curve" [legend]="showLegend" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
+      [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" [autoScale]="autoScale" (select)="onSelect($event)"></ngx-charts-line-chart>
+  </div>
+</div> -->
+<context-menu>
+  <ng-template *ngIf="this.selected_items.length != 0 && loading" contextMenuItem (execute)="clickBack()">
+    Back
+  </ng-template>
+  <ng-template *ngFor="let item of items" contextMenuItem (execute)="click(item)">
+    {{item.name}}
+  </ng-template>
+</context-menu>
+
+<div [contextMenu]="basicMenu" [contextMenuSubject]="items">
+
+  <app-nvd3-line-chart *ngIf="!chartloading" [data]="ChartData" [xAxisFormat]="xAxisFormat" [xAxisLabel]="xAxisLabel"></app-nvd3-line-chart>
+  <div *ngIf="chartloading">
+      <mat-spinner style="margin: 20px auto;" [diameter]="40"></mat-spinner>
+    </div>
+</div>

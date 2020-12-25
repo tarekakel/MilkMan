@@ -1,0 +1,129 @@
+/* You can add global styles to this file, and also import other style files pink-bluegrey.css purple-green.css indigo-pink.css deeppurple-amber.css*/
+/* @import "~@angular/material/prebuilt-themes/deeppurple-amber.css"; */
+/* @import "~@angular/material/prebuilt-themes/pink-bluegrey.css"; */
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+/* @import "~@angular/material/prebuilt-themes/purple-green.css"; */
+@import "assets/bootstrap/css/bootstrap.min.css";
+@import "assets/d3/nv.d3.min.css";
+
+body {
+  font-family: Calibri !important;
+}
+
+.mat-drawer-content {
+  background-image: url("assets/img/background1.PNG") !important;
+  background-repeat: repeat !important;
+  background-size: 70px;
+}
+.mat-form-field-infix {
+  font-family: Calibri !important;
+}
+/*scroll style*/
+/* width */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+.mat-select-panel .mat-optgroup-label,
+.mat-option-text,
+.mat-select-panel .mat-option,
+.mat-form-field-infix {
+  font-size: 15px !important;
+}
+
+.mat-tab-body.mat-tab-body-active {
+  overflow-y: hidden !important;
+}
+
+.mat-tab-body-content {
+  overflow: hidden !important;
+}
+
+th {
+  font-size: 14px !important;
+  font-weight: 1000 !important;
+  color: black !important;
+  padding-left: 7px !important;
+}
+td {
+  font-size: 14px !important;
+  padding-left: 7px !important;
+}
+
+tr.mat-footer-row,
+tr.mat-row {
+  height: 23px !important;
+}
+
+tr.mat-header-row {
+  height: 40px !important;
+}
+.mat-tab-label-active {
+  background-color: rgb(140, 175, 199) !important;
+  color: black;
+  border-bottom: 0px !important;
+}
+
+.mat-ink-bar {
+  background-color: rgb(107, 170, 221) !important;
+}
+
+.mat-form-field-label {
+  font-size: 18px !important;
+  color: black !important;
+}
+
+.mat-form-field-infix {
+  width: 120px !important;
+}
+
+.dropdown-menu {
+  max-height: 300px !important;
+  overflow-y: scroll !important;
+}
+
+.mat-card {
+  padding: 10px !important;
+}
+
+.cdk-global-overlay-wrapper > .cdk-overlay-pane {
+  max-width: 100% !important;
+  width: 95% !important;
+  /*min-height: 90% !important;*/
+}
+
+.cdk-overlay-dark-backdrop {
+  background: rgba(0, 0, 0, 0.7) !important;
+}
+
+.mat-dialog-container {
+  background-color: rgba(255, 255, 255, 0.883) !important;
+  color: rgba(0, 0, 0, 0.9) !important;
+}
+
+.denger {
+  background-color: #d9544f41;
+}
+
+.warning {
+  background-color: #ec961f41;
+}
+
+.good {
+  background-color: #449d4441;
+}

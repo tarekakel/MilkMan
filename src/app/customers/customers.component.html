@@ -1,0 +1,45 @@
+<div class="row">
+  <div class="col-md-12 col-sm-12">
+    <mat-card>
+      <div class="row">
+        <div class="col-md-2">
+          <mat-form-field>
+            <mat-select [(value)]="Duration" placeholder="Duration" (selectionChange)="selectOrderBy($event.value)">
+              <mat-option [value]="''">ALL Periods</mat-option>
+              <mat-option [value]="'YESTERDAY'">Yesterday</mat-option>
+              <mat-option [value]="'WEEK'">Last 7 Days</mat-option>
+              <mat-option [value]="'MONTH'">Last 30 Days</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-md-2">
+          <app-mat-select-filter [data]="CityNames" [placeholder]="'City'" (selectionChange)="selectCity($event.value)" [disabled]="CityNames.length == 0"></app-mat-select-filter>
+        </div>
+        <div class="col-md-2">
+          <app-mat-select-filter [data]="AreaNames" [placeholder]="'Area'" (selectionChange)="selectArea($event.value)" [disabled]="AreaNames.length == 1"></app-mat-select-filter>
+        </div>
+        <div class="col-md-2">
+          <app-mat-select-filter [data]="ShopNames" [placeholder]="'Shop Name'" (selectionChange)="selectShop($event.value)" [disabled]="ShopNames.length == 1"></app-mat-select-filter>
+        </div>
+        <div class="col-md-2">
+          <app-mat-select-filter [data]="SalesMans" [placeholder]="'Sales Man'" (selectionChange)="selectSalesMan($event.value)" [disabled]="SalesMans.length == 0"></app-mat-select-filter>
+        </div>
+        <div class="col-md-2">
+
+        </div>
+      </div>
+    </mat-card>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12 col-sm-12">
+    <app-space [length]="1"></app-space>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12 col-sm-12">
+    <app-customers-table [city]="CityName" [duration]="Duration" [area]="AreaName" [shopname]="ShopName" [SalesMan]="SalesMan"></app-customers-table>
+  </div>
+</div>
+
+<button mat-fab (click)="openDialog()" style="bottom: 75px;right: 40px;position: fixed;z-index: 998;" color="primary"><mat-icon svgIcon="search"></mat-icon></button>

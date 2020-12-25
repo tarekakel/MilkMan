@@ -1,0 +1,140 @@
+.number-card-category{
+    
+    
+    font-family:Calibri !important;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    display: flex;
+    justify-content: space-between; 
+    flex-wrap:wrap;
+}
+.number-card-hover{
+    opacity: 0.9;
+    
+}
+.number-card-hover:hover{
+    opacity: 0.8;
+    cursor: pointer;
+}
+
+  
+
+
+
+.number-card{
+    width: 12%;
+    min-width: 160px;
+    height: 120px;
+    border: 0px;
+    background: rgb(234, 236, 243);
+    border-radius: 4px;
+    border-bottom: 0px;
+    margin: 5px;
+    
+}
+
+.value-card{
+    height: 40%;
+    color:rgb(71, 71, 75);
+    text-align: center;
+    font-size: 26px;
+    background-color: rgb(223, 223, 226);
+    font-weight: 1000;
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+    border: none;
+    color: black;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    text-shadow: 1px 0 2px rgba(0,0,0,0.5) ;
+}
+
+.percentage-card{
+    height: 30%;
+    color:rgb(71, 71, 75);
+    text-align: center;
+    font-size: 26px;
+}
+
+.name-card{
+    height: 30%;
+    color:rgb(71, 71, 75);
+    text-align: center;
+    font-size: 18px;
+}
+
+.line-card{
+    margin: 0px;
+    margin-top: -3px;
+    min-width: 100px;
+    min-height: 5px;
+    padding-top: 5px;
+    background-color: brown;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+    border: 0px;
+}
+
+
+.md-size{
+    width: 23px;
+    height: 23px;
+}
+
+.md-s-size{
+    width: 18px;
+    height: 18px;
+}
+.md-red{
+    color: red;
+}
+
+.md-green{
+    color: green;
+}
+
+.md-orange{
+    color: orange;
+}
+
+.total{
+    padding: 5px;
+    background-color: rgb(223, 223, 226);
+    
+}
+
+.total-per{
+    background: rgb(234, 236, 243);
+    padding: 5px;
+}
+
+.total-div{
+    border-radius: 5px;
+    min-width: 500px;
+}
+
+/* On screens that are 600px or less, set the background color to olive */
+@media screen and (max-width: 600px) {
+    .number-card{
+        width: 100%;
+        min-width: 160px;
+        height: 110px;
+        border: 0px;
+        background: rgb(234, 236, 243);
+        border-radius: 4px;
+        border-bottom: 0px;
+        margin: 5px;
+        
+    }
+    .value-card{
+        height: 40%;
+        color:rgb(71, 71, 75);
+        padding-top: 0%;
+        text-align: center;
+        font-size: 26px;
+        background-color: rgb(223, 223, 226);
+        font-weight: 1000;
+    }
+  }

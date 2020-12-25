@@ -1,0 +1,58 @@
+<button style="float: right;" mat-icon-button mat-dialog-close><mat-icon svgIcon="close"></mat-icon></button>
+<div class="row">
+  <div class="col-md-12">
+    <div class="row">
+      <div class="col-md-12">
+        <div mat-dialog-title style="position: relative;"></div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">
+        <mat-radio-group class="example-radio-group" [(ngModel)]="favoriteWay">
+          <mat-radio-button (click)="last = 0" value="1">By invoice number</mat-radio-button>
+          <app-space [length]="2"></app-space>
+          <mat-radio-button value="2">Between two invoice number</mat-radio-button>
+        </mat-radio-group>
+      </div>
+      <div class="col-md-4">
+        <mat-form-field>
+          <input style="width:40px;text-align: center;font-size: 16px" matInput type="text" (input)="onSearchChange($event.target.value)"
+            [(ngModel)]="first" [placeholder]="">
+        </mat-form-field>
+        <app-space [length]="2"></app-space>
+        <mat-form-field *ngIf="favoriteWay == '2'">
+          <input style="width:40px;text-align: center;font-size: 16px" matInput type="text" (input)="onSearchChange($event.target.value)"
+            [(ngModel)]="last" [placeholder]="">
+        </mat-form-field>
+      </div>
+      <div class="col-md-4">
+        <mat-form-field style="width: 100px">
+          <input matInput [matDatepicker]="from" [formControl]="fromdate" placeholder="From" (dateInput)="ChangeFrom('input', $event)"
+            (dateChange)="ChangeFrom('change', $event)">
+          <mat-datepicker-toggle matSuffix [for]="from"></mat-datepicker-toggle>
+          <mat-datepicker #from></mat-datepicker>
+        </mat-form-field>
+        <app-space [length]="2"></app-space>
+        <mat-form-field style="width: 100px">
+          <input matInput [matDatepicker]="to" [formControl]="todate" placeholder="To" (dateInput)="ChangeTo('input', $event)" (dateChange)="ChangeTo('change', $event)">
+          <mat-datepicker-toggle matSuffix [for]="to"></mat-datepicker-toggle>
+          <mat-datepicker #to></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div class="col-md-1">
+        <button mat-raised-button style="float: right;" color="primary" (click)="apply()">apply</button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <hr/>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <app-dynamic-table *ngIf="ShowTable" [nodata]="nodata" [loading]="loading" [data]="dataTable" [columnsDef]="columnsDef" [addFilter]="true"
+          [pageSizeOptions]="pageSizeOptions" [ShowExport]="true" (ClickOptionEvent)="optionClick($event)"></app-dynamic-table>
+      </div>
+    </div>
+  </div>
+</div>

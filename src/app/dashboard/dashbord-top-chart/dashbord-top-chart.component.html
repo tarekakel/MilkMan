@@ -1,0 +1,16 @@
+<div class="row">
+  <div class="col-md-12 col-sm-12">
+    <mat-card>
+      <div *ngIf="loading">
+        <mat-spinner style="margin: 20px auto;" [diameter]="40"></mat-spinner>
+      </div>
+      <div [style.height]="'330px'">
+        <ngx-charts-bar-vertical *ngIf="!loading" [scheme]="colorScheme" [results]="single" [gradient]="gradient" [xAxis]="showXAxis"
+          [yAxis]="showYAxis" [legend]="showLegend" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel"
+          [yAxisLabel]="yAxisLabel" (select)="onSelect($event)">
+        </ngx-charts-bar-vertical>
+      </div>
+
+    </mat-card>
+  </div>
+</div>

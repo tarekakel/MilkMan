@@ -1,0 +1,4 @@
+<mat-card>
+    <app-dynamic-table *ngIf="true" [ShowExport]="true" [nodata]="nodata" [loading]="loading" [data]="TableData" [columnsDef]="columnsDef"
+    [addFilter]="true" [activePages]="false" [activeTotal]="true" [pageSizeOptions]="[10,25,50,75,100]" (ClickOptionEvent)="optionClick($event)"></app-dynamic-table>
+</mat-card>

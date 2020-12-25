@@ -1,0 +1,27 @@
+<mat-card>
+  <div class="row">
+    <div class="col-md-2">
+      <mat-form-field style="width: 100px">
+        <input matInput [matDatepicker]="from" [formControl]="fromdate" placeholder="Date" (dateInput)="ChangeFrom('input', $event)"
+          (dateChange)="ChangeFrom('change', $event)">
+        <mat-datepicker-toggle matSuffix [for]="from"></mat-datepicker-toggle>
+        <mat-datepicker #from></mat-datepicker>
+      </mat-form-field>
+    </div>
+    <div class="col-md-2">
+      <app-mat-select-filter [data]="SalesTypes" [selectedData]="SalesType" [placeholder]="'Sales Type'" (selectionChange)="selectSalesType($event.value)"
+        [disabled]="SalesTypes.length == 0"></app-mat-select-filter>
+    </div>
+    <div class="col-md-2">
+      <app-mat-select-filter [data]="AmountCounts" [selectedData]="AmountCount" [placeholder]="'Amount or Count'" (selectionChange)="selectAmountCount($event.value)"
+        [disabled]="AmountCounts.length == 0"></app-mat-select-filter>
+    </div>
+    <div class="col-md-6">
+      <button mat-raised-button style="float: right;" color="primary" (click)="apply()">apply</button>
+      <app-space [length]="2" style="float:right"></app-space>
+      <button mat-stroked-button [disabled]="loading" color="primary" style="float: right;" color="primary" (click)="Export()"><span>Export All</span>  <span *ngIf="loading"> <app-space  [length]="3" style="float:right"></app-space><mat-spinner
+         style="position: absolute;right: 2px;top:2px;" [diameter]="20"></mat-spinner></span>
+      </button>
+    </div>
+  </div>
+</mat-card>

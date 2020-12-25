@@ -1,0 +1,25 @@
+<div class="row" *ngIf="!noData || !ChartLoading">
+  <div class="col-md-12 col-sm-12">
+    <mat-card>
+      <div style="z-index: 1293829;">
+        <!-- <ngx-charts-line-chart [curve]="curve" [scheme]="colorScheme" [results]="ELEMENT_DATA" [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis"
+          [legend]="showLegend" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel"
+          [yAxisLabel]="yAxisLabel" [autoScale]="autoScale" (select)="onSelect($event)"></ngx-charts-line-chart> -->
+        
+        <app-nvd3-multi-chart [domain]="domain" [ChartData]="data" [tickValues]="tickValues"></app-nvd3-multi-chart>
+      </div>
+     
+
+      <mat-spinner *ngIf="ChartLoading"></mat-spinner>
+    </mat-card>
+  </div>
+</div>
+<div class="row" *ngIf="noData && !ChartLoading">
+  <div class="col-md-1"></div>
+  <div class="col-md-10">
+    <mat-card>
+      <h3>No Data...</h3>
+    </mat-card>
+  </div>
+  <div class="col-md-1"></div>
+</div>

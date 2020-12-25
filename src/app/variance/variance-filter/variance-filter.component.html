@@ -1,0 +1,48 @@
+<mat-card>
+  <div class="row">
+    <div class="col-md-1">
+      <mat-form-field style="width: 100px">
+        <input matInput [matDatepicker]="from" placeholder="from" [formControl]="fromdate" (dateInput)="ChangeFrom('input', $event)"
+          (dateChange)="ChangeFrom('change', $event)">
+        <mat-datepicker-toggle matSuffix [for]="from"></mat-datepicker-toggle>
+        <mat-datepicker #from></mat-datepicker>
+      </mat-form-field>
+    </div>
+    <div class="col-md-2">
+      <mat-form-field style="width: 100px">
+        <input matInput [matDatepicker]="to" placeholder="to" [formControl]="todate" (dateInput)="ChangeTo('input', $event)" (dateChange)="ChangeTo('change', $event)">
+        <mat-datepicker-toggle matSuffix [for]="to"></mat-datepicker-toggle>
+        <mat-datepicker #to></mat-datepicker>
+      </mat-form-field>
+    </div>
+    <div class="col-md-1">
+      <mat-form-field style="width: 100px">
+        <input matInput [matDatepicker]="pfrom" placeholder="from" [formControl]="pfromdate" (dateInput)="pChangeFrom('input', $event)"
+          (dateChange)="pChangeFrom('change', $event)">
+        <mat-datepicker-toggle matSuffix [for]="pfrom"></mat-datepicker-toggle>
+        <mat-datepicker #pfrom></mat-datepicker>
+      </mat-form-field>
+    </div>
+    <div class="col-md-2">
+      <mat-form-field style="width: 100px">
+        <input matInput [matDatepicker]="pto" placeholder="to" [formControl]="ptodate" (dateInput)="pChangeTo('input', $event)" (dateChange)="pChangeTo('change', $event)">
+        <mat-datepicker-toggle matSuffix [for]="pto"></mat-datepicker-toggle>
+        <mat-datepicker #pto></mat-datepicker>
+      </mat-form-field>
+    </div>
+    <div class="col-md-2">
+      <app-mat-select-filter [data]="filterby" [selectedData]="Selectedfilterby" [placeholder]="'Group by'" (selectionChange)="Selectfilterby($event.value)"
+        [disabled]="filterby.length == 0"></app-mat-select-filter>
+    </div>
+    <div class="col-md-2">
+      <app-mat-select-filter [data]="major" [selectedData]="SelectedMajor" [placeholder]="'Major'" (selectionChange)="SelectMajor($event.value)"
+        [disabled]="major.length == 0"></app-mat-select-filter>
+    </div>
+    <div class="col-md-2">
+      <mat-form-field>
+        <input matInput placeholder="Percentage" type="number" [(ngModel)]="Percentage" maxlength="3"  min="1" max="100">
+      </mat-form-field>
+      <button mat-raised-button style="float: right;" color="primary" (click)="apply()">apply</button>
+    </div>
+  </div>
+</mat-card>

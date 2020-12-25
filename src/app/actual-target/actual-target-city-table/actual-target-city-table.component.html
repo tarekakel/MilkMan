@@ -1,0 +1,2 @@
+<app-dynamic-table *ngIf="ShowTable" [ShowExport]="false" [nodata]="nodata" [loading]="Loading" [data]="TableData" [columnsDef]="columnsDef"
+              [addFilter]="false" [pageSizeOptions]="[12]" (ClickOptionEvent)="optionClick($event)"></app-dynamic-table>

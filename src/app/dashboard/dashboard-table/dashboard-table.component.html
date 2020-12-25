@@ -1,0 +1,74 @@
+<div class="row">
+  <div class="col-md-12 col-sm-12">
+    <div class="example-table-container" [style.display]="noData || TableLoading ?  'none':  'inherit'">
+      <mat-card>
+        <div class="table-responsive">
+          <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8" matSortActive="act_date" matSortDirection="desc">
+            <!-- Name Column -->
+            <ng-container matColumnDef="act_date">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Date </th>
+              <td mat-cell *matCellDef="let element" style="font-weight: bold;white-space: nowrap;"> {{element.act_date | date:'EEE
+                dd,MMM yyyy'}} </td>
+            </ng-container>
+
+            <!-- Weight Column -->
+            <ng-container matColumnDef="Total_sales_Amount">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header><span style="white-space: nowrap;">Sales Amount <span style="font-size: 11px">.SYP</span></span>
+              </th>
+              <td mat-cell *matCellDef="let element"> <span><mat-icon  (click)="ShowStatus(element)" [svgIcon]="element.statu == 'UP' ? 'arrow_upward' : 'arrow_downward'"
+                    [ngClass]="element.statu == 'UP' ? 'md-green md-size hover-click' : 'md-red md-size hover-click'">{{element.statu == 'UP' ? 'call_made'
+                    : 'call_received'}}</mat-icon>{{element.Total_sales_Amount | number}} </span></td>
+            </ng-container>
+
+            <!-- Weight Column -->
+            <ng-container matColumnDef="Total_Account_Name">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header><span style="white-space: nowrap;">Total Shops</span>
+              </th>
+              <td mat-cell *matCellDef="let element"> <span>{{element.Total_Account_Name | number}} </span></td>
+            </ng-container>
+
+            <!-- Weight Column -->
+            <ng-container matColumnDef="Total_sales_count">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header><span style="white-space: nowrap;">Item Count (Sales)</span>
+              </th>
+              <td mat-cell *matCellDef="let element"> <span>{{element.Total_sales_count | number}} </span></td>
+            </ng-container>
+
+            <!-- Weight Column -->
+            <ng-container matColumnDef="Gift_Cost">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header><span style="white-space: nowrap;">Offer Cost <span style="font-size: 11px">.SYP</span></span></th>
+              <td mat-cell *matCellDef="let element"> <span>{{element.Gift_Cost | number}} </span></td>
+            </ng-container>
+
+            <!-- Weight Column -->
+            <ng-container matColumnDef="Gift_Count">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header><span style="white-space: nowrap;">Item Count (offer)</span>
+              </th>
+              <td mat-cell *matCellDef="let element"> <span>{{element.Gift_Count | number}} </span></td>
+            </ng-container>
+
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+        </div>
+        <mat-paginator [pageSizeOptions]="[10]" showFirstLastButtons></mat-paginator>
+      </mat-card>
+    </div>
+  </div>
+
+</div>
+<div>
+  <mat-spinner style="margin: 20px auto;" [diameter]="40" *ngIf="TableLoading"></mat-spinner>
+</div>
+
+
+<div class="row" *ngIf="noData && !TableLoading">
+  <div class="col-md-1"></div>
+  <div class="col-md-10">
+    <mat-card>
+      <h3>No Data...</h3>
+    </mat-card>
+  </div>
+  <div class="col-md-1"></div>
+</div>

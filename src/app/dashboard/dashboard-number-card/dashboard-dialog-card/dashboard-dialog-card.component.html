@@ -1,0 +1,88 @@
+<button style="float: right;" mat-icon-button mat-dialog-close><mat-icon svgIcon="close"></mat-icon></button>
+<h2 mat-dialog-title>{{title}}
+  <mat-progress-bar style="width:80%;" *ngIf="loading" mode="query"></mat-progress-bar>
+</h2>
+<mat-dialog-content>
+  <div class="row">
+    <div class="col-lg-4">
+      <div *ngIf="!loading">
+        <mat-card>
+          <h3>Distribution Of Materials For 30 Days</h3>
+          <app-nvd3-pie-chart [data]="ChartData" [height]="350" [width]="350"></app-nvd3-pie-chart>
+        </mat-card>
+      </div>
+    </div>
+    <div class="col-lg-8">
+      <mat-card>
+        <h3>Trend</h3>
+        <div *ngIf="!loading" style="height: 400px;">
+          <ngx-charts-line-chart [view]="dyWH" style="z-index: 14;" [scheme]="colorScheme" [results]="ELEMENT_DATA" [gradient]="gradient"
+            [xAxis]="showXAxis" [yAxis]="showYAxis" [curve]="curve" [legend]="showLegend" [showXAxisLabel]="showXAxisLabel"
+            [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" [autoScale]="autoScale" (select)="onSelect($event)"></ngx-charts-line-chart>
+        </div>
+      </mat-card>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12 col-sm-12">
+      <hr/>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <mat-card>
+        <div class="row">
+          <div class="col-md-12 col-sm-12">
+            <span>
+              <span style="font-size:22px;">Comparison between last day and average daily for the last </span>
+              <mat-form-field style="width:40px">
+                <input style="width:40px;text-align: center;font-size: 22px" matInput type="number" (input)="onSearchChange($event.target.value)"
+                  [(ngModel)]="cardDays" maxlength="2" [placeholder]="" min="1" max="60">
+              </mat-form-field>
+              <span style="font-size:22px;"> day(s)</span>
+            </span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12 col-sm-12">
+            <div class="number-card-category" *ngIf="!loading && data.day <= 60 && data.day >= 1">
+              <span class="number-card number-card-hover" matTooltip="" (click)="onSelect(item)" *ngFor="let item of AvgData;let i = index">
+                <div class="value-card">
+                  <span counto [step]="40" [countTo]="item.Total_sales_Amount" [countFrom]="0" [duration]="1" (countoChange)="countoChange($event,i)"
+                    (countoEnd)="onCountoEnd()">{{counto[i] | number}}</span>
+
+                  <span style="font-size: 12px">.SYP</span>
+
+                </div>
+                <div class="percentage-card">
+                  {{item.PER}}
+
+                  <mat-icon [ngClass]="item.stat == 'UP' ? 'md-size md-green' : item.stat == 'DOWN' ? 'md-size md-red': 'md-size md-orange'"
+                    [svgIcon]="item.stat == 'UP' ? 'arrow_upward' : item.stat == 'DOWN' ? 'arrow_downward': 'equal' "></mat-icon>
+
+                </div>
+                <div class="name-card">
+                  {{(item.VGroup_Name == item.Vmaterial) ? item.VMaterial_Name : (item.VmaterialID == "C0105" || item.VmaterialID == "C0106")
+                  ? item.VMaterial_Name : item.VGroup_Name }}
+                </div>
+                <div class="line-card" [style.background-color]="colorScheme.domain[i]">
+                </div>
+              </span>
+            </div>
+            <div *ngIf="loading">
+              <mat-spinner style="margin: 20px auto;" [diameter]="40"></mat-spinner>
+            </div>
+            <div *ngIf="!loading && !(data.day  <= 60 && data.day  >= 1)">
+              Please set days between 1 and 60
+            </div>
+          </div>
+        </div>
+      </mat-card>
+    </div>
+  </div>
+
+
+</mat-dialog-content>
+<mat-dialog-actions>
+
+</mat-dialog-actions>

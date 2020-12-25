@@ -1,0 +1,73 @@
+<div class="row">
+  <div class="col-md-12 col-sm-12">
+    <mat-card>
+      <mat-card-title>
+        <div class="row">
+          <div class="col-md-2">
+            <h3>Favorite Materials</h3>
+          </div>
+          <div class="col-md-1">
+            <mat-form-field>
+              <mat-select [(value)]="filter" placeholder="Duration" (selectionChange)="selectOrderBy($event.value)">
+                <mat-option [value]="''">ALL Periods</mat-option>
+                <mat-option [value]="'YESTERDAY'">Yesterday</mat-option>
+                <mat-option [value]="'WEEK'">Last 7 Days</mat-option>
+                <mat-option [value]="'MONTH'">Last 30 Days</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+      </mat-card-title>
+
+      <mat-card-content>
+
+        <div *ngIf="loading">
+          <mat-spinner style="margin: 20px auto;" [diameter]="40"></mat-spinner>
+        </div>
+        <div *ngIf="!loading" (mouseenter)="mouseEnter()" (mouseleave)="mouseLeave()">
+
+
+
+          <div class="conten-block ">
+            <button mat-mini-fab color="warn" style="position: absolute;top:155px" (click)="moveLeft()"><mat-icon svgIcon="arrow_back"></mat-icon></button>
+            <button mat-mini-fab color="warn" style="position: absolute;top:155px;right: 30px;" (click)="moveRight()"><mat-icon
+                svgIcon="arrow_forward"></mat-icon></button>
+            <drag-scroll class="view-pie" #nav snap-duration="500" drag-scroll-y-disabled="true" scrollbar-hidden="true" ng-reflect-scrollbar-hidden="true"
+              ng-reflect-y-disabled="true">
+              <div drag-scroll-item class="element-chart" *ngFor="let item of single">
+                <table style="border:1px solid rgb(190, 188, 188);border-radius: 5px;margin: 2px;display: inline-block;">
+                  <tr>
+                    <td style="text-align: center;border-right: 1px solid rgb(161, 160, 160)">
+                      {{item.Material_Name}}
+                    </td>
+                    <td style="text-align: center">
+                      {{item.City}}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colspan="2">
+                      <app-nvd3-donut-chart [height]="175" [data]="[{ key : item.Material_Name , y : item.total_rev },{ key : 'others' , y : item.OVERALL }]"></app-nvd3-donut-chart>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="text-align: center;border-right: 1px solid rgb(161, 160, 160)">
+                      <span style="font-size: 14px;font-weight: 1000">{{item.total_rev|round | number }}</span> <span style="font-size: 12px">.SYP</span>
+                      - <span class="label label-success" style="font-size: 13px">{{ (item.total_rev / (item.OVERALL + item.total_rev))
+                        * 100 | round }} %</span>
+                    </td>
+                    <td style="text-align: center">
+                      <span style="font-size: 14px;font-weight: 1000">{{(item.OVERALL)|round | number }}</span>
+                      <span style="font-size: 12px">.SYP</span> - <span class="label label-info" style="font-size: 13px">{{
+                        (item.OVERALL / (item.OVERALL + item.total_rev)) * 100 | round }} %</span>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+
+            </drag-scroll>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

@@ -1,0 +1,216 @@
+<mat-card style="overflow-y:inherit">
+  <h4> Filter </h4>
+  
+  <div class="row">
+    <div class=" col-sm-12">
+      <div class="row">
+        <div class="col-sm-6">
+          <mat-form-field style="width: 100px">
+            <input matInput [matDatepicker]="from" [formControl]="fromdate" placeholder="From" (dateInput)="ChangeFrom('input', $event)"
+              (dateChange)="ChangeFrom('change', $event)">
+            <mat-datepicker-toggle matSuffix [for]="from"></mat-datepicker-toggle>
+            <mat-datepicker #from></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div class="col-sm-6">
+          <mat-form-field style="width: 100px">
+            <input matInput [matDatepicker]="to" [formControl]="todate" placeholder="To" (dateInput)="ChangeTo('input', $event)" (dateChange)="ChangeTo('change', $event)">
+            <mat-datepicker-toggle matSuffix [for]="to"></mat-datepicker-toggle>
+            <mat-datepicker #to></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6">
+          <mat-form-field>
+            <mat-select [(value)]="CompanyName" placeholder="Company Name" (selectionChange)="selectCompany($event.value)" [disabled]="CompanyNames.length == 0">
+              <mat-option [value]="''">ALL</mat-option>
+              <mat-option *ngFor="let CompanyName of CompanyNames" [value]="CompanyName.VCompany">
+                {{CompanyName.VCompany}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-sm-6">
+          <mat-form-field>
+            <mat-select [(value)]="CategoryName" placeholder="Category Name" (selectionChange)="selectCategory($event.value)" [disabled]="CategoryNames.length == 0">
+              <mat-option [value]="''">ALL</mat-option>
+              <mat-option *ngFor="let CategoryName of CategoryNames" [value]="CategoryName.VmaterialID">
+                {{CategoryName.Vmaterial}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6">
+
+          <mat-form-field>
+            <mat-select [(value)]="Group_Code" placeholder="Group Name" (selectionChange)="selectGroup($event.value)" [disabled]="GroupNames.length == 0">
+              <mat-option [value]="''">ALL</mat-option>
+              <mat-option *ngFor="let GroupName of GroupNames" [value]="GroupName.VGroup_Code">
+                {{GroupName.Vgroup_name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-sm-6">
+
+          <mat-form-field>
+            <mat-select [(value)]="Material_Code" [placeholder]="'Material Name'" (selectionChange)="selectMaterial($event.value)" [disabled]="MaterialNames.length == 0">
+              <mat-option [value]="''">ALL</mat-option>
+              <mat-option *ngFor="let MaterialName of MaterialNames" [value]="MaterialName.VMaterial_Code">
+                {{MaterialName.VMaterial_Name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <hr/>
+      <div class="row">
+        <div class="col-sm-6">
+          <app-mat-select-filter [data]="CityNames" [selectedData]="sCityName" [placeholder]="'City'" (selectionChange)="selectCity($event.value)"
+            [disabled]="CityNames.length == 0"></app-mat-select-filter>
+        </div>
+        <div class="col-sm-6">
+          <app-mat-select-filter [data]="AreaNames" [selectedData]="sAreaName" [placeholder]="'Area'" (selectionChange)="selectArea($event.value)"
+            [disabled]="AreaNames.length == 1"></app-mat-select-filter>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-6">
+          <app-mat-select-filter [data]="ShopNames" [selectedData]="sShopName" [placeholder]="'Shop Name'" (selectionChange)="selectShop($event.value)"
+            [disabled]="ShopNames.length == 1"></app-mat-select-filter>
+        </div>
+        <div class="col-sm-6">
+          <app-mat-select-filter [data]="SalesMans" [selectedData]="sSalesMan" [placeholder]="'Sales Man'" (selectionChange)="selectSalesMan($event.value)"
+            [disabled]="SalesMans.length == 0"></app-mat-select-filter>
+        </div>
+      </div>
+      <hr/>
+      <div class="row">
+        <div class="col-sm-6">
+          <mat-form-field>
+            <mat-select [(value)]="Sales_Type" [placeholder]="'Sales Type'" (selectionChange)="selectSales_Type($event.value)" [disabled]="Sales_Types.length == 0">
+              <mat-option [value]="''">ALL</mat-option>
+              <mat-option *ngFor="let item of Sales_Types" [value]="item.id">
+                {{item.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field>
+            <mat-select [(value)]="Sub_Type" [placeholder]="'Sub Type'" (selectionChange)="selectSub_Type($event.value)" [disabled]="Sub_Types.length == 0">
+              <mat-option [value]="''">ALL</mat-option>
+              <mat-option *ngFor="let Sub_Type of Sub_Types" [value]="Sub_Type.id">
+                {{Sub_Type.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr/>
+  <h4>View By</h4>
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="row">
+        <div class="col-sm-12 col-sm-12">
+          <mat-checkbox [(ngModel)]="chkboxDate" (change)="disableDate()">Date</mat-checkbox>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12 col-sm-12">
+          <mat-radio-group [disabled]="!disabledDate" [(ngModel)]="DateChecked" (change)="DateChagne()">
+            <mat-radio-button value="DAY">Day</mat-radio-button>
+            <br>
+            <mat-radio-button value="MONTH">Month</mat-radio-button>
+            <br>
+            <mat-radio-button value="YEAR">Year</mat-radio-button>
+            <br>
+            <mat-radio-button value="QUARTER">Quarter</mat-radio-button>
+          </mat-radio-group>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-sm-6">
+      <div class="row">
+        <div class="col-sm-12 col-sm-12">
+          <mat-checkbox [(ngModel)]="chkboxScope" (change)="disableScope()">Scope</mat-checkbox>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12 col-sm-12">
+          <mat-radio-group [disabled]="!disabledScope" [(ngModel)]="ScopeChecked" (change)="ScopeChagne()">
+            <mat-radio-button value="city">City</mat-radio-button>
+            <br>
+            <mat-radio-button value="area">Area</mat-radio-button>
+            <br>
+            <mat-radio-button value="Account_Name">Shop Name</mat-radio-button>
+            <!-- 
+                <mat-radio-button value="4">Distributor</mat-radio-button> -->
+          </mat-radio-group>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="row">
+        <div class="col-sm-12 col-sm-12">
+          <mat-checkbox [(ngModel)]="chkboxMaterials" (change)="disableItemCategory()">Materials</mat-checkbox>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12 col-sm-12">
+          <mat-radio-group [disabled]="!disabledItemCategory" [(ngModel)]="ItemCategoryChecked" (change)="ItemCategoryChagne()">
+            <mat-radio-button value="VCompany">Company</mat-radio-button>
+            <br>
+            <mat-radio-button value="Vmaterial">Category Name</mat-radio-button>
+            <br>
+            <mat-radio-button value="Vgroup_name">Group Name</mat-radio-button>
+            <br>
+            <mat-radio-button value="VMaterial_Name">Material Name</mat-radio-button>
+          </mat-radio-group>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="row">
+        <div class="col-sm-12 col-sm-12">
+          <mat-checkbox [(ngModel)]="chkboxSalesMan" (change)="disableSalesMan()">SalesMan</mat-checkbox>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12 col-sm-12">
+          <mat-radio-group [disabled]="!disabledSalesMan" [(ngModel)]="SalesManChecked" (change)="SalesManChagne()">
+            <mat-radio-button value="SalesMan">SalesMan</mat-radio-button>
+          </mat-radio-group>
+        </div>
+      </div>
+      <br/>
+      <div class="row">
+        <div class="col-sm-12 col-sm-12">
+          <mat-checkbox [(ngModel)]="chkboxInvoiceNumber" (change)="disableInvoiceNumber()">Invoice</mat-checkbox>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12 col-sm-12">
+          <mat-radio-group [disabled]="!disabledInvoiceNumber" [(ngModel)]="InvoiceNumberChecked" (change)="InvoiceNumberChagne()">
+            <mat-radio-button value="invoice_number">Invoice Number</mat-radio-button>
+          </mat-radio-group>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12 col-sm-12">
+      <button mat-raised-button style="float: right;" color="primary" (click)="apply()">apply</button><app-space style="float: right;"
+        [length]="2"></app-space><button mat-raised-button style="float: right;" color="warn" (click)="reset()">Reset</button>
+    </div>
+  </div>
+</mat-card>

@@ -1,0 +1,5 @@
+<app-dynamic-table *ngIf="!message" [ShowExport]="true" [nodata]="nodata" [loading]="Loading" [data]="TableData" [columnsDef]="columnsDef"
+  [addFilter]="true" [pageSizeOptions]="[12]" (ClickOptionEvent)="optionClick($event)"></app-dynamic-table>
+<div *ngIf="message">
+  No Target
+</div>

@@ -1,0 +1,55 @@
+<button style="float: right;" mat-icon-button mat-dialog-close><mat-icon svgIcon="close"></mat-icon></button>
+
+<div class="row">
+  <h3 style="direction: rtl;width:50%;float: left;">{{data.city}} / {{data.area}} / {{data.account_name}}</h3>
+  <div class="col-md-12">
+    <div class="row">
+      <div class="col-md-12">
+        <div mat-dialog-title style="position: relative;"></div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        <mat-card>
+          <h4>Top Ten Material (all period)</h4>
+          <div>
+            <app-nvd3-pie-chart [data]="ChartData" [height]="350" [width]="350"></app-nvd3-pie-chart>
+          </div>
+        </mat-card>
+      </div>
+      <div class="col-md-8">
+
+        <mat-card>
+          <h4>Trend</h4>
+          <div class="row">
+            <div class="col-md-12" style="min-height: 400px;">
+              <ngx-charts-line-chart *ngIf="!ChartLoading" [view]="dyWH" style="z-index: 14" [scheme]="colorScheme" [results]="ELEMENT_DATA"
+                [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [curve]="curve" [legend]="showLegend" [showXAxisLabel]="showXAxisLabel"
+                [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" [autoScale]="autoScale"
+                (select)="onSelect($event)"></ngx-charts-line-chart>
+              <div *ngIf="ChartLoading">
+                <mat-spinner style="margin: 20px auto;" [diameter]="40"></mat-spinner>
+              </div>
+            </div>
+          </div>
+        </mat-card>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <hr/>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <br>
+        <mat-card>
+          <h4>Ivoices</h4>
+          <app-dynamic-table *ngIf="ShowTable" [nodata]="nodata" [loading]="loading" [data]="dataTable" [columnsDef]="columnsDef" [addFilter]="true"
+            [pageSizeOptions]="pageSizeOptions" [ShowExport]="true" (ClickOptionEvent)="optionClick($event)"></app-dynamic-table>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</div>

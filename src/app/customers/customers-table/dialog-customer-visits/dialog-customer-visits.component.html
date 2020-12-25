@@ -1,0 +1,17 @@
+<button style="float: right;" mat-icon-button mat-dialog-close><mat-icon svgIcon="close"></mat-icon></button>
+<div class="row">
+  <div class="col-md-12">
+    <app-space [length]="1"></app-space>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <br>
+    <mat-card>
+      <h4>Visits</h4>
+      <app-dynamic-table *ngIf="ShowTable" [nodata]="nodata" [loading]="loading" [data]="dataTable" [columnsDef]="columnsDef" [addFilter]="true"
+        [pageSizeOptions]="pageSizeOptions" [ShowExport]="true" (ClickOptionEvent)="optionClick($event)"></app-dynamic-table>
+    </mat-card>
+  </div>
+</div>

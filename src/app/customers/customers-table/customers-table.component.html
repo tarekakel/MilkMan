@@ -1,0 +1,10 @@
+
+<div class="row">
+  <div class="col-md-12 col-sm-12">
+    <mat-card>
+      <app-dynamic-table *ngIf="ShowTable" [nodata]="nodata" [loading]="loading" [data]="data" [columnsDef]="columnsDef" [addFilter]="true"
+      [pageSizeOptions]="pageSizeOptions"  [activePages]="true" [ShowExport]="true" (ClickOptionEvent)="optionClick($event)"></app-dynamic-table>
+    </mat-card>
+  </div>
+</div>
+

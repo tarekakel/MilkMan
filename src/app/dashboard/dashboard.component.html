@@ -1,0 +1,549 @@
+
+
+<app-dashboard-number-card> </app-dashboard-number-card>
+
+<div class="row">
+  <div class="col-md-12 col-sm-12">
+    <app-space [length]="1"></app-space>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12 col-sm-12">
+    <mat-card>
+      <div class="row">
+        <div class="col-md-2">
+          <!--  -->
+          <mat-form-field *ngIf="tabs_visit_sales == 'sales'">
+            <mat-select
+              [(value)]="CompanyName"
+              placeholder="Company Name"
+              (selectionChange)="selectCompany($event.value)"
+              [disabled]="CompanyNames.length == 0"
+            >
+              <mat-option [value]="''">ALL</mat-option>
+              <mat-option
+                *ngFor="let CompanyName of CompanyNames"
+                [value]="CompanyName.VCompany"
+              >
+                {{ CompanyName.VCompany }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <app-mat-select-filter
+            *ngIf="tabs_visit_sales == 'visits'"
+            [selectedData]="CityItem"
+            [data]="CityNames"
+            [placeholder]="'City'"
+            (selectionChange)="selectCity($event.value)"
+            [disabled]="CityNames.length == 0"
+          ></app-mat-select-filter>
+        </div>
+        <div class="col-md-2">
+          <mat-form-field *ngIf="tabs_visit_sales == 'sales'">
+            <mat-select
+              [(value)]="CategoryName"
+              placeholder="Category Name"
+              (selectionChange)="selectCategory($event.value)"
+              [disabled]="CategoryNames.length == 0"
+            >
+              <mat-option [value]="''">ALL</mat-option>
+              <mat-option
+                *ngFor="let CategoryName of CategoryNames"
+                [value]="CategoryName.VmaterialID"
+              >
+                {{ CategoryName.Vmaterial }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <app-mat-select-filter
+            *ngIf="tabs_visit_sales == 'visits'"
+            [selectedData]="AreaItem"
+            [data]="AreaNames"
+            [placeholder]="'Area'"
+            (selectionChange)="selectArea($event.value)"
+            [disabled]="AreaNames.length == 1"
+          ></app-mat-select-filter>
+        </div>
+        <div class="col-md-2">
+          <mat-form-field *ngIf="tabs_visit_sales == 'sales'">
+            <mat-select
+              [(value)]="Group_Code"
+              placeholder="Group Name"
+              (selectionChange)="selectGroup($event.value)"
+              [disabled]="GroupNames.length == 0"
+            >
+              <mat-option [value]="''">ALL</mat-option>
+              <mat-option
+                *ngFor="let GroupName of GroupNames"
+                [value]="GroupName.VGroup_Code"
+              >
+                {{ GroupName.Vgroup_name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <app-mat-select-filter
+            *ngIf="tabs_visit_sales == 'visits'"
+            [selectedData]="ShopName"
+            [data]="ShopNames"
+            [placeholder]="'Shop Name'"
+            (selectionChange)="selectShopName($event.value)"
+            [disabled]="ShopNames.length == 1"
+          ></app-mat-select-filter>
+        </div>
+        <div class="col-md-2">
+          <mat-form-field *ngIf="tabs_visit_sales == 'sales'">
+            <mat-select
+              [(value)]="Material_Code"
+              placeholder="Material Name"
+              (selectionChange)="selectMaterial($event.value)"
+              [disabled]="MaterialNames.length == 0"
+            >
+              <mat-option [value]="''">ALL</mat-option>
+              <mat-option
+                *ngFor="let MaterialName of MaterialNames"
+                [value]="MaterialName.VMaterial_Code"
+              >
+                {{ MaterialName.VMaterial_Name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <app-mat-select-filter
+            *ngIf="tabs_visit_sales == 'visits'"
+            [selectedData]="SalesMan"
+            [data]="SalesMans"
+            [placeholder]="'Sales Man'"
+            (selectionChange)="selectSalesMan($event.value)"
+            [disabled]="SalesMans.length == 0"
+          ></app-mat-select-filter>
+        </div>
+
+        <div class="col-md-2">
+          <app-mat-select-filter
+            *ngIf="tabs_visit_sales == 'sales'"
+            [selectedData]="CityItem"
+            [data]="CityNames"
+            [placeholder]="'City'"
+            (selectionChange)="selectCity($event.value)"
+            [disabled]="CityNames.length == 0"
+          ></app-mat-select-filter>
+        </div>
+        <div class="col-md-2" style="position: relative;">
+          <button
+            mat-raised-button
+            class="reset"
+            color="warn"
+            (click)="resetFilters()"
+          >
+            Reset
+          </button>
+
+          <mat-button-toggle-group
+            class="tab-switch"
+            value="sales"
+            name="fontStyle"
+            aria-label="Font Style"
+          >
+            <mat-button-toggle
+              value="sales"
+              (click)="change_visit_sales('sales')"
+              >Sales</mat-button-toggle
+            >
+            <mat-button-toggle
+              value="visits"
+              (click)="change_visit_sales('visits')"
+              >Visits</mat-button-toggle
+            >
+            <!-- <mat-button-toggle value="target" (click)="change_visit_sales('target')">Target</mat-button-toggle> -->
+          </mat-button-toggle-group>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 col-sm-12">
+          <app-space [length]="1"></app-space>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 col-sm-12">
+          <mat-tab-group *ngIf="tabs_visit_sales == 'visits'">
+            <mat-tab label="Daily">
+              <ng-template matTabContent>
+                <div class="row">
+                  <div class="col-md-6">
+                    <app-dashbord-visit-table
+                      [tab]="'DAY'"
+                      [from]="from"
+                      [to]="to"
+                      [city]="CityName"
+                      [area]="sAreaItem"
+                      [shopname]="sShopName"
+                      [salesman]="sSalesMan"
+                    ></app-dashbord-visit-table>
+                  </div>
+                  <div class="col-md-6">
+                    <app-dashbord-visit-chart
+                      [tab]="'DAY'"
+                      [from]="from"
+                      [to]="to"
+                      [city]="CityName"
+                      [area]="sAreaItem"
+                      [shopname]="sShopName"
+                      [salesman]="sSalesMan"
+                    ></app-dashbord-visit-chart>
+                  </div>
+                </div>
+              </ng-template>
+            </mat-tab>
+            <mat-tab label="Monthly">
+              <ng-template matTabContent>
+                <div class="row">
+                  <div class="col-md-6">
+                    <app-dashbord-visit-table
+                      [tab]="'MONTH'"
+                      [from]="from"
+                      [to]="to"
+                      [city]="CityName"
+                      [area]="sAreaItem"
+                      [shopname]="sShopName"
+                      [salesman]="sSalesMan"
+                    ></app-dashbord-visit-table>
+                  </div>
+                  <div class="col-md-6">
+                    <app-dashbord-visit-chart
+                      [tab]="'MONTH'"
+                      [from]="from"
+                      [to]="to"
+                      [city]="CityName"
+                      [area]="sAreaItem"
+                      [shopname]="sShopName"
+                      [salesman]="sSalesMan"
+                    ></app-dashbord-visit-chart>
+                  </div>
+                </div>
+              </ng-template>
+            </mat-tab>
+          </mat-tab-group>
+          <mat-tab-group *ngIf="tabs_visit_sales == 'sales'">
+            <mat-tab label="Daily">
+              <ng-template matTabContent>
+                <div class="row">
+                  <div class="col-md-12 col-sm-12">
+                    <div class="row">
+                      <div class="col-md-12 col-sm-12">
+                        &nbsp;
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <app-dashboard-table
+                          [from]="from"
+                          [to]="to"
+                          [company_name]="CompanyName"
+                          [category_name]="CategoryName"
+                          [group_code]="Group_Code"
+                          [material_code]="Material_Code"
+                          [city]="CityName"
+                        ></app-dashboard-table>
+                      </div>
+                      <div class="col-md-6">
+                        <app-dashboard-sales-chart
+                          [from]="from"
+                          [to]="to"
+                          [company_name]="CompanyName"
+                          [category_name]="CategoryName"
+                          [group_code]="Group_Code"
+                          [material_code]="Material_Code"
+                          [city]="CityName"
+                        ></app-dashboard-sales-chart>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </ng-template>
+            </mat-tab>
+            <mat-tab label="Monthly">
+              <ng-template matTabContent>
+                <div class="row">
+                  <div class="col-md-12 col-sm-12">
+                    <div class="row">
+                      <div class="col-md-12 col-sm-12">
+                        &nbsp;
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <app-dashboard-month-sales-table
+                          [city]="CityName"
+                          [company_name]="CompanyName"
+                          [category_name]="CategoryName"
+                          [group_code]="Group_Code"
+                          [material_code]="Material_Code"
+                        ></app-dashboard-month-sales-table>
+                      </div>
+                      <div class="col-md-6">
+                        <app-dashboard-month-sales-chart
+                          [city]="CityName"
+                          [company_name]="CompanyName"
+                          [category_name]="CategoryName"
+                          [group_code]="Group_Code"
+                          [material_code]="Material_Code"
+                        ></app-dashboard-month-sales-chart>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </ng-template>
+            </mat-tab>
+          </mat-tab-group>
+          <!-- <mat-tab-group *ngIf="tabs_visit_sales == 'target'">
+            <mat-tab label="Daily">
+              <ng-template matTabContent>
+                <div class="row">
+                  <div class="col-md-12 col-sm-12">
+                    <app-dashboard-sales-target></app-dashboard-sales-target>
+                  </div>
+                </div>
+              </ng-template>
+            </mat-tab>
+            <mat-tab label="Monthly">
+                <ng-template matTabContent>
+                  <div class="row">
+                    <div class="col-md-12 col-sm-12">
+                      <app-dashboard-sales-target-chart></app-dashboard-sales-target-chart>
+                    </div>
+                  </div>
+                </ng-template>
+              </mat-tab>
+          </mat-tab-group> -->
+        </div>
+      </div>
+    </mat-card>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12 col-sm-12">
+    <app-space [length]="1"></app-space>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12 col-sm-12">
+    <mat-card>
+      <app-sales-hierarchy></app-sales-hierarchy>
+    </mat-card>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12 col-sm-12">
+    &nbsp;
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12 col-sm-12">
+    <mat-card>
+      <div class="row">
+        <div class="col-md-12 col-sm-12">
+          <div class="row">
+            <div class="col-md-2">
+              <mat-form-field>
+                <mat-select
+                  [(value)]="Sorting"
+                  placeholder="Sorting"
+                  (selectionChange)="selectType($event.value)"
+                >
+                  <mat-option [value]="'desc'">Top</mat-option>
+                  <mat-option [value]="'asc'">Less</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="col-md-2">
+              <mat-form-field>
+                <mat-select
+                  [(value)]="OrderBy"
+                  placeholder="Order by"
+                  (selectionChange)="selectOrderBy($event.value)"
+                >
+                  <mat-option [value]="'total_sales_amount'">Amount</mat-option>
+                  <mat-option [value]="'total_seles_count'">Count</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="col-md-2">
+              <mat-form-field>
+                <mat-select
+                  [(value)]="filter"
+                  placeholder="Duration"
+                  (selectionChange)="selectOrderBy($event.value)"
+                >
+                  <mat-option [value]="'yesterday'">Yesterday</mat-option>
+                  <mat-option [value]="'week'">Last 7 Days</mat-option>
+                  <mat-option [value]="'month'">Last 30 Days</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="col-md-2">
+              <mat-form-field>
+                <input
+                  matInput
+                  type="number"
+                  [(ngModel)]="tops"
+                  maxlength="2"
+                  placeholder="Top"
+                  min="3"
+                  max="50"
+                />
+              </mat-form-field>
+            </div>
+            <div class="col-md-2">
+              <mat-form-field>
+                <mat-select
+                  [(value)]="CityForTop"
+                  placeholder="City Name"
+                  (selectionChange)="selectOrderBy($event.value)"
+                  [disabled]="false"
+                >
+                  <mat-option *ngFor="let City of CityNames" [value]="City.id">
+                    {{ City.name }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="col-md-2">
+              <mat-form-field>
+                <mat-select
+                  [(value)]="CategoryNameForTop"
+                  placeholder="Category Name"
+                  (selectionChange)="selectOrderBy($event.value)"
+                >
+                  <mat-option [value]="''">ALL</mat-option>
+                  <mat-option
+                    *ngFor="let CategoryName of CategoryNamesForTop"
+                    [value]="CategoryName.VmaterialID"
+                  >
+                    {{ CategoryName.Vmaterial }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <button
+                mat-raised-button
+                style="float: right;"
+                color="warn"
+                (click)="resetFiltersTop()"
+              >
+                Reset
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 col-sm-12">
+          <mat-tab-group
+            [selectedIndex]="tab"
+            (selectedIndexChange)="selectedIndexChange($event)"
+          >
+            <mat-tab label="Materials">
+              <ng-template matTabContent>
+                <div class="row">
+                  <div class="col-md-5">
+                    <app-dashbord-top-table
+                      [tap]="tab + 1"
+                      [sort]="Sorting"
+                      [oredr]="OrderBy"
+                      [filter]="filter"
+                      [top]="tops"
+                      [city]="CityForTop"
+                      [groupid]="CategoryNameForTop"
+                    ></app-dashbord-top-table>
+                  </div>
+                  <div class="col-md-7">
+                    <app-dashbord-top-chart
+                      [tap]="tab + 1"
+                      [sort]="Sorting"
+                      [oredr]="OrderBy"
+                      [filter]="filter"
+                      [top]="tops"
+                      [city]="CityForTop"
+                      [groupid]="CategoryNameForTop"
+                    ></app-dashbord-top-chart>
+                  </div>
+                </div>
+              </ng-template>
+            </mat-tab>
+            <mat-tab label="Customers">
+              <ng-template matTabContent>
+                <div class="row">
+                  <div class="col-md-5">
+                    <app-dashbord-top-table
+                      [tap]="tab + 1"
+                      [sort]="Sorting"
+                      [oredr]="OrderBy"
+                      [filter]="filter"
+                      [top]="tops"
+                      [city]="CityForTop"
+                      [groupid]="CategoryNameForTop"
+                    ></app-dashbord-top-table>
+                  </div>
+                  <div class="col-md-7">
+                    <app-dashbord-top-chart
+                      [tap]="tab + 1"
+                      [sort]="Sorting"
+                      [oredr]="OrderBy"
+                      [filter]="filter"
+                      [top]="tops"
+                      [city]="CityForTop"
+                      [groupid]="CategoryNameForTop"
+                    ></app-dashbord-top-chart>
+                  </div>
+                </div>
+              </ng-template>
+            </mat-tab>
+            <mat-tab label="Sales Man">
+              <ng-template matTabContent>
+                <div class="row">
+                  <div class="col-md-5">
+                    <app-dashbord-top-table
+                      [tap]="tab + 1"
+                      [sort]="Sorting"
+                      [oredr]="OrderBy"
+                      [filter]="filter"
+                      [top]="tops"
+                      [city]="CityForTop"
+                      [groupid]="CategoryNameForTop"
+                    ></app-dashbord-top-table>
+                  </div>
+                  <div class="col-md-7">
+                    <app-dashbord-top-chart
+                      [tap]="tab + 1"
+                      [sort]="Sorting"
+                      [oredr]="OrderBy"
+                      [filter]="filter"
+                      [top]="tops"
+                      [city]="CityForTop"
+                      [groupid]="CategoryNameForTop"
+                    ></app-dashbord-top-chart>
+                  </div>
+                </div>
+              </ng-template>
+            </mat-tab>
+          </mat-tab-group>
+        </div>
+      </div>
+    </mat-card>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12 col-sm-12">
+    <app-space [length]="1"> </app-space>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12 col-sm-12">
+    <app-sales-favorite-materials></app-sales-favorite-materials>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12 col-sm-12">
+    <app-space [length]="1"> </app-space>
+  </div>
+</div>

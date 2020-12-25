@@ -1,0 +1,74 @@
+<!-- <table mat-table [dataSource]="dataSource" matSort>
+  <ng-container *ngFor="let item of columnsDef" [matColumnDef]="item.def">
+    <th mat-header-cell *matHeaderCellDef> {{item.title}} </th>
+    <td mat-cell *matCellDef="let element"> {{element[item.def]}} </td>
+  </ng-container>
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+ -->
+<div [style.display]="loading || nodata ? 'none' : 'initial'">
+  <mat-form-field *ngIf="addFilter">
+    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
+  </mat-form-field>
+  <label *ngIf="ShowExport" class="custom-file-download" (click)="export()" style="float: right;">
+    <table>
+      <tr>
+        <td>
+          <mat-icon svgIcon="cloud_download">favorite</mat-icon>
+        </td>
+        <td>
+          Export
+        </td>
+      </tr>
+    </table>
+  </label>
+  <div class="table-responsive">
+    <table mat-table [dataSource]="dataSource" matSort [matSortActive]="matSortActive" [matSortDirection]="matSortDirection">
+
+
+      <ng-container *ngFor="let item of columnsDef" [matColumnDef]="item.def">
+
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          
+              <div  style="white-space: nowrap;overflow: hidden;"> {{item.title }} <div *ngIf="activeTotal" style="border-top:1px solid rgb(97, 97, 97);font-size:16px;font-weight: 5000;  color:rgb(0, 0, 0);text-align: left;">{{(item.Total != null)? item.Total : '-'}}</div></div>
+          
+        </th>
+        
+        <td mat-cell *matCellDef="let element" [class]="element.statusOption + ' mat-cell cdk-column-Month mat-column-Month ng-star-inserted'"
+          [ngStyle]="element[item.def] != null && getType(element[item.def]) == 'object' ? element[item.def].td_style : '' ">
+          <div style="white-space: nowrap;overflow: hidden;">
+            <mat-icon *ngIf="item.option != ''" class="table-icon" [svgIcon]="item.icon" [style.color]="item.iconColor" style="cursor: pointer;"
+              (click)="ClickOption(item.option,item.icon,item.title,element)"></mat-icon>
+            <span *ngIf="getType(element[item.def]) != 'object'">
+              {{(item.format == 'number') ? (element[item.def] | number) : (item.format == 'date') ? (element[item.def] | date:'dd/MM/yyyy')
+              : (item.format == 'month') ? (element[item.def] | date:'MM-yyyy') : (item.format == 'tdate') ? (element[item.def]
+              | date:'EE d, MMM yyyy') : (item.format == 'tmonth') ? (element[item.def] | date:'MMM-yy') : (item.format ==
+              'secondsToHhmmss') ? (element[item.def] | secondsToHhmmss) : element[item.def]}} {{(item.format == 'percentage')
+              ? ' %' : ''}}
+            </span>
+            <span *ngIf="element[item.def] != null && getType(element[item.def]) == 'object'">
+              {{(item.format == 'number') ? (element[item.def].value | number) : (item.format == 'date') ? (element[item.def].value | date:'dd/MM/yyyy')
+              : (item.format == 'month') ? (element[item.def].value | date:'MM-yyyy') : (item.format == 'tdate') ? (element[item.def].value
+              | date:'EE d, MMM yyyy') : (item.format == 'tmonth') ? (element[item.def].value | date:'MMM-yy') : (item.format ==
+              'secondsToHhmmss') ? (element[item.def].value | secondsToHhmmss) : element[item.def].value}} {{(item.format == 'percentage')
+              ? ' %' : ''}}
+            </span>
+          </div>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let element; columns: displayedColumns;">
+      </tr>
+    </table>
+  </div>
+  <mat-paginator [class]="(activePages == false)? 'chidden' : ''" [pageSizeOptions]="pageSizeOptions" showFirstLastButtons></mat-paginator>
+</div>
+<div *ngIf="loading">
+  <mat-spinner style="margin: 20px auto;" [diameter]="40"></mat-spinner>
+</div>
+
+<div *ngIf="nodata">
+  No Data!...
+</div>

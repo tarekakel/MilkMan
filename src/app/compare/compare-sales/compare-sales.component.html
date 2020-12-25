@@ -1,0 +1,182 @@
+<mat-accordion>
+  <mat-expansion-panel [expanded]="panelOpenState" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <div>
+          Filters
+
+        </div>
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <div class="table-responsive">
+
+      <table class="table">
+        <tr>
+          <th>
+            #
+          </th>
+          <th>
+            Duration Type
+          </th>
+          <th>
+            Duration
+          </th>
+          <th>
+            Company
+          </th>
+          <th>
+            Category
+          </th>
+          <th>
+            Group
+          </th>
+          <th>
+            Material
+          </th>
+          <th>
+            City
+          </th>
+          <th>
+            Area
+          </th>
+          <th>
+            Shop Name
+          </th>
+          <th>
+            Sales Man
+          </th>
+        </tr>
+        <tr class="trow" *ngFor="let filter of lfilters;let i = index">
+          <td>
+            {{(i + 1)}}
+          </td>
+          <td>
+            <app-mat-select-filter [data]="filter.durationtypes" [selectedData]="filter.durationtype" [placeholder]="''" (selectionChange)="filter.selectDurationtype($event.value)"
+              [disabled]="filter.durationtypes.length == 0"></app-mat-select-filter>
+          </td>
+          <td style="min-width:220px;">
+            <app-mat-select-filter *ngIf="filter.durationtype.id == 'year'" [data]="filter.years" [selectedData]="filter.year" [placeholder]="''"
+              (selectionChange)="filter.selectYear($event.value)" [disabled]="filter.years.length == 0"></app-mat-select-filter>
+            <app-mat-select-filter *ngIf="filter.durationtype.id == 'month'" [data]="filter.months" [selectedData]="filter.month" [placeholder]="''"
+              (selectionChange)="filter.selectMonth($event.value)" [disabled]="filter.months.length == 0"></app-mat-select-filter>
+            <mat-form-field style="width: 100px" *ngIf="filter.durationtype.id == 'day'">
+              <input matInput [matDatepicker]="from" placeholder="from" [formControl]="filter.fromdate" (dateInput)="filter.ChangeFrom('input', $event)"
+                (dateChange)="filter.ChangeFrom('change', $event)">
+              <mat-datepicker-toggle matSuffix [for]="from"></mat-datepicker-toggle>
+              <mat-datepicker #from></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field style="width: 100px" *ngIf="filter.durationtype.id == 'day'">
+              <input matInput [matDatepicker]="to" placeholder="to" [formControl]="filter.todate" (dateInput)="filter.ChangeTo('input', $event)"
+                (dateChange)="filter.ChangeTo('change', $event)">
+              <mat-datepicker-toggle matSuffix [for]="to"></mat-datepicker-toggle>
+              <mat-datepicker #to></mat-datepicker>
+            </mat-form-field>
+          </td>
+          <td>
+            <app-mat-select-filter [data]="filter.companys" [selectedData]="filter.company" [placeholder]="''" (selectionChange)="filter.selectCompany($event.value)"
+              [disabled]="filter.companys.length == 0"></app-mat-select-filter>
+          </td>
+          <td>
+            <app-mat-select-filter [data]="filter.categorys" [selectedData]="filter.category" [placeholder]="''" (selectionChange)="filter.selectCategory($event.value)"
+              [disabled]="filter.categorys.length == 0"></app-mat-select-filter>
+          </td>
+          <td>
+            <app-mat-select-filter [data]="filter.groups" [selectedData]="filter.group" [placeholder]="''" (selectionChange)="filter.selectGroup($event.value)"
+              [disabled]="filter.groups.length == 0"></app-mat-select-filter>
+          </td>
+          <td>
+            <app-mat-select-filter [data]="filter.materials" [selectedData]="filter.material" [placeholder]="''" (selectionChange)="filter.selectMaterial($event.value)"
+              [disabled]="filter.materials.length == 0"></app-mat-select-filter>
+          </td>
+          <td>
+            <app-mat-select-filter [data]="filter.citys" [selectedData]="filter.city" [placeholder]="''" (selectionChange)="filter.selectCity($event.value)"
+              [disabled]="filter.citys.length == 0"></app-mat-select-filter>
+          </td>
+          <td>
+            <app-mat-select-filter [data]="filter.areas" [selectedData]="filter.area" [placeholder]="''" (selectionChange)="filter.selectArea($event.value)"
+              [disabled]="filter.areas.length == 0"></app-mat-select-filter>
+          </td>
+          <td>
+            <app-mat-select-filter [data]="filter.shops" [selectedData]="filter.shop" [placeholder]="''" (selectionChange)="filter.selectShop($event.value)"
+              [disabled]="filter.shops.length == 0"></app-mat-select-filter>
+          </td>
+          <td>
+            <app-mat-select-filter [data]="filter.salesmans" [selectedData]="filter.salesman" [placeholder]="''" (selectionChange)="filter.selectSalesman($event.value)"
+              [disabled]="filter.salesmans.length == 0"></app-mat-select-filter>
+          </td>
+        </tr>
+      </table>
+
+    </div>
+    <div style="position:relative">
+      <app-space [length]="1">
+
+      </app-space>
+      <button mat-raised-button style="position: absolute; right:120px;bottom:5px " color="primary" (click)="apply()">apply</button>
+      <button *ngIf="panelOpenState" mat-mini-fab style="position: absolute; right:25px;bottom:5px  " [disabled]="lfilters.length == 2"
+        color="warn" (click)="removeListFilters()"><mat-icon svgIcon="remove_circle_outline"></mat-icon></button>
+      <button *ngIf="panelOpenState" mat-mini-fab style="position: absolute; right:70px;bottom:5px " [disabled]="lfilters.length == 4"
+        color="primary" (click)="addListFilters()"><mat-icon svgIcon="playlist_add"></mat-icon></button>
+    </div>
+  </mat-expansion-panel>
+</mat-accordion>
+
+<div class="row">
+  <div class="col-md-12">
+    <app-space [length]="1"></app-space>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <mat-card>
+      <div class="row">
+        <div class="col-md-12">
+            <app-dynamic-table *ngIf="!applyLoading" [ShowExport]="false" [nodata]="false" [loading]="false" [data]="dataSource" [columnsDef]="columnsDef"
+            [addFilter]="false"  [activePages]="true" [pageSizeOptions]="[4]"></app-dynamic-table>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <app-space [length]="1"></app-space>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <app-space [length]="1"></app-space>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <app-space [length]="1"></app-space>
+        </div>
+      </div>
+      <div class="row" *ngIf="!applyLoading">
+        <div class="col-md-11">
+          <div class="row">
+            <div class="col-md-4" style="min-height: 250px;">
+              <ngx-charts-bar-vertical  [scheme]="colorScheme" [results]="singleAVG" [gradient]="gradient" [xAxis]="showXAxis"
+                [yAxis]="showYAxis" [legend]="showLegend" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
+                [xAxisLabel]="xAxisLabelAVG" [yAxisLabel]="yAxisLabel" (select)="onSelect($event)">
+              </ngx-charts-bar-vertical>
+            </div>
+            <div class="col-md-4" style="min-height: 250px;">
+              <ngx-charts-bar-vertical  [scheme]="colorScheme" [results]="singleSales" [gradient]="gradient" [xAxis]="showXAxis"
+                [yAxis]="showYAxis" [legend]="showLegend" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
+                [xAxisLabel]="xAxisLabelSales" [yAxisLabel]="yAxisLabel" (select)="onSelect($event)">
+              </ngx-charts-bar-vertical>
+            </div>
+            <div class="col-md-4" style="min-height: 250px;">
+              <ngx-charts-bar-vertical  [scheme]="colorScheme" [results]="singleCountShop" [gradient]="gradient" [xAxis]="showXAxis"
+                [yAxis]="showYAxis" [legend]="showLegend" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
+                [xAxisLabel]="xAxisLabelCountShop" [yAxisLabel]="yAxisLabel" (select)="onSelect($event)">
+              </ngx-charts-bar-vertical>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="applyLoading">
+        <mat-spinner style="margin: 20px auto;" [diameter]="40"></mat-spinner>
+      </div>
+    </mat-card>
+  </div>
+</div>

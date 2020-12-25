@@ -1,0 +1,14 @@
+<h2 mat-dialog-title>{{title}} <mat-progress-bar style="width:80%;"  *ngIf="loading" mode="query"></mat-progress-bar><button style="float: right;" mat-icon-button mat-dialog-close><mat-icon svgIcon="close"></mat-icon></button></h2>
+<mat-dialog-content>
+  
+  <div style="width:90%;height: 350px;" *ngIf="!loading">
+    <ngx-charts-line-chart *ngIf="single$ | async as data" [scheme]="colorScheme" [results]="data" [gradient]="gradient" [xAxis]="showXAxis"
+      [yAxis]="showYAxis" [legend]="showLegend" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel"
+      [yAxisLabel]="yAxisLabel" [autoScale]="autoScale" [curve]="curve" (select)="onSelect($event)">
+    </ngx-charts-line-chart>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+  
+</mat-dialog-actions>
+

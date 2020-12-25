@@ -1,0 +1,29 @@
+<div class="row">
+  <div class="col-md-6">
+    <mat-card>
+      <app-actual-target-month-table (SelectRow)="SelectMonth($event)"></app-actual-target-month-table>
+    </mat-card>
+  </div>
+  <div class="col-md-6">
+    <mat-card>
+      <app-actual-target-city-table #actualTargetCityTableComponent (SelectRow)="SelectCity($event)"></app-actual-target-city-table>
+    </mat-card>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <app-space [length]="1"></app-space>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-6">
+    <mat-card>
+      <app-actual-target-head-table #actualTargetHeadTableComponent (SelectRow)="SelectHead($event)"></app-actual-target-head-table>
+    </mat-card>
+  </div>
+  <div class="col-md-6">
+    <mat-card>
+      <app-actual-target-salesman-table #actualTargetSalesmanTableComponent ></app-actual-target-salesman-table>
+    </mat-card>
+  </div>
+</div>

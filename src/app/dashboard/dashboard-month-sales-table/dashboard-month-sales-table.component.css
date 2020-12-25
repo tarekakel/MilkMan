@@ -1,0 +1,37 @@
+table {
+    width: 100%;
+    font-family:Calibri !important;
+    font-size: 14px;
+} 
+th.mat-sort-header-sorted {
+    color: black;
+}
+
+.example-table-container {
+  position: relative;
+  max-height: 400px;
+  overflow: none;
+}
+
+.md-size{
+    width: 12px;
+    height: 12px;
+}
+
+.md-red{
+    color: red;
+}
+
+.md-green{
+    color: green;
+}
+
+
+.hover-click{
+    cursor: pointer;
+}
+
+.hover-click:hover{
+    width: 15px;
+    height: 15px;
+}

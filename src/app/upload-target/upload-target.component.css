@@ -1,0 +1,41 @@
+table {
+    width: 100%;
+    font-family:Calibri !important;
+    font-size: 14px;
+} 
+th.mat-sort-header-sorted {
+    color: black;
+}
+
+.example-table-container {
+  position: relative;
+  max-height: 400px;
+  overflow-x: none;
+}
+
+.md-size{
+    width: 12px;
+    height: 12px;
+}
+
+.md-red{
+    color: red;
+}
+
+.button-row{
+    margin: 3px;
+    display: inline-block;
+}
+.button-row button,
+.button-row a {
+  margin-right: 8px;
+}
+
+.nullError{
+    background-color: rgb(223, 138, 138);
+}
+
+.dublError{
+    background-color: rgb(233, 217, 127);
+}
+

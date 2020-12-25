@@ -1,0 +1,33 @@
+<button style="float: right;" mat-icon-button mat-dialog-close><mat-icon svgIcon="close"></mat-icon></button>
+<div class="row">
+  <div class="col-md-12 col-sm-12">
+    <mat-card>
+      <div class="number-card-category" *ngIf="!loading">
+        <span class="number-card number-card-hover" matTooltip="" (click)="onSelect(item)" *ngFor="let item of dataCards;let i = index">
+          <div class="value-card">
+            <span counto [step]="40" [countTo]="item.difference_" [countFrom]="0" [duration]="1" (countoChange)="countoChange($event,i)"
+              (countoEnd)="onCountoEnd()">{{counto[i] | number}}</span>
+
+            <span style="font-size: 12px">.SYP</span>
+
+          </div>
+          <div class="percentage-card">
+            {{item.PER}} %
+
+            <mat-icon [ngClass]="item.statu == 'UP' ? 'md-size md-green' : item.statu == 'DOWN' ? 'md-size md-red': 'md-size md-orange'"
+              [svgIcon]="item.statu == 'UP' ? 'arrow_upward' : item.statu == 'DOWN' ? 'arrow_downward': 'equal' "></mat-icon>
+
+          </div>
+          <div class="name-card">
+            {{item.VGroup_Name}}
+          </div>
+          <div class="line-card" [style.background-color]="colorScheme.domain[i]">
+          </div>
+        </span>
+      </div>
+      <div *ngIf="loading">
+        <mat-spinner style="margin: 20px auto;" [diameter]="40"></mat-spinner>
+      </div>
+    </mat-card>
+  </div>
+</div>

@@ -1,0 +1,14 @@
+<table class="xlsx-reader">
+    <tr>
+        <td>
+            <label [class]="disabled ? 'custom-file-upload-disabled':'custom-file-upload'">
+                <input type="file" #Input_file [disabled]="disabled" (change)="onFileChange($event)"  accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" /> Read Excel
+            </label>
+        </td>
+        <!-- <td>
+            <mat-form-field class="input-file">
+                <input matInput placeholder="File Name" [(value)]="filename" disabled>
+            </mat-form-field>
+        </td> -->
+    </tr>
+</table>

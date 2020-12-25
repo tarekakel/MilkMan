@@ -1,0 +1,35 @@
+.dashboard-card {
+    margin: 5px;
+}
+
+.tab-switch{
+    position: absolute;right: 105px;top:10px;z-index: 10000;
+}
+
+.reset{
+    position: absolute;right: 10px;top:10px;z-index: 10000;
+}
+
+
+/* On screens that are 600px or less, set the background color to olive */
+@media screen and (max-width: 600px) {
+    .tab-switch{
+        position: absolute;right: 105px;top: -50px;z-index: 10000;
+    }
+    
+    .reset{
+        position: absolute;right: 10px;top: -50px;z-index: 10000;
+    }
+  }
+
+
+  /* On screens that are 600px or less, set the background color to olive */
+@media screen and (max-width: 900px) {
+    .tab-switch{
+        position: absolute;right: 105px;top: -50px;z-index: 10000;
+    }
+    
+    .reset{
+        position: absolute;right: 10px;top: -50px;z-index: 10000;
+    }
+  }

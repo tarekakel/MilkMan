@@ -1,0 +1,22 @@
+<div class="row">
+  <div class="col-md-3">
+    <app-visits-filter  #visits_filter (applyFilters)="applyFilters($event)"></app-visits-filter>
+  </div>
+  <div class="col-md-9">
+      <div class="row">
+          <div class="col-md-12 col-sm-12">
+            <app-space [length]="1"></app-space>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12 col-sm-12">
+            <mat-card>
+              <mat-card-content>
+                <app-dynamic-table *ngIf="ShowTable" [ShowExport]="true" [nodata]="nodata" [loading]="Loading" [data]="TableData" [columnsDef]="columnsDef"
+                  [addFilter]="true" [pageSizeOptions]="[10,25,50,75,100]" (ClickOptionEvent)="optionClick($event)"></app-dynamic-table>
+              </mat-card-content>
+            </mat-card>
+          </div>
+        </div>
+  </div>
+</div>

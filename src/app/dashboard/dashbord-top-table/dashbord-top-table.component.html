@@ -1,0 +1,9 @@
+<mat-card>
+  <app-dynamic-table *ngIf="ShowTable" [nodata]="nodata" [loading]="loading" [data]="data" [columnsDef]="columnsDef" [addFilter]="addFilter"
+      [activePages]="true" [pageSizeOptions]="[10]" (ClickOptionEvent)="optionClick($event)"></app-dynamic-table>
+
+    <div *ngIf="loading">
+        <mat-spinner style="margin: 20px auto;" [diameter]="40"></mat-spinner>
+      </div>
+</mat-card>
+
